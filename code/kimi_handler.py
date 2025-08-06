@@ -227,7 +227,7 @@ def get_kimi_response(prompt, use_existing_chat=True):
         try:
             browser = p.chromium.launch_persistent_context(
                 user_data_dir=config.USER_DATA_DIR,
-                headless=False,
+                headless=True,
                 args=['--no-sandbox']
             )
             page = browser.new_page()
@@ -638,9 +638,9 @@ def get_kimi_response(prompt, use_existing_chat=True):
                 response_text = "无法获取Kimi的回复内容，可能网站结构已更新或网络问题。"
 
             # 如果创建了新对话，尝试修改标题
-            if need_new_chat and hasattr(config, 'CHAT_TITLE_TEMPLATE') and config.CHAT_TITLE_TEMPLATE:
+            if need_new_chat and hasattr(config, 'TARGET_CHAT_NAME') and config.TARGET_CHAT_NAME:
                 logger.info("检测到创建了新对话，开始修改对话标题...")
-                title = config.CHAT_TITLE_TEMPLATE.format(date=datetime.now().strftime('%m-%d'))
+                title = config.TARGET_CHAT_NAME
                 if rename_chat_title(page, title):
                     logger.info("对话标题修改成功")
                 else:
