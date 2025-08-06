@@ -227,7 +227,7 @@ def get_kimi_response(prompt, use_existing_chat=True):
         try:
             browser = p.chromium.launch_persistent_context(
                 user_data_dir=config.USER_DATA_DIR,
-                headless=True,
+                headless=False,
                 args=['--no-sandbox']
             )
             page = browser.new_page()
